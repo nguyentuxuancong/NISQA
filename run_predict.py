@@ -4,6 +4,8 @@
 """
 from nisqa.NISQA_model import nisqaModel
 import argparse
+import torch
+torch.multiprocessing.set_sharing_strategy('file_system')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--mode', required=True, type=str, help='either predict_file, predict_dir, or predict_csv')
@@ -16,6 +18,7 @@ parser.add_argument('--csv_deg', type=str, help='column in csv with files name/p
 parser.add_argument('--num_workers', type=int, default=0, help='number of workers for pytorchs dataloader')
 parser.add_argument('--bs', type=int, default=1, help='batch size for predicting')
 parser.add_argument('--ms_channel', type=int, help='audio channel in case of stereo file')
+parser.add_argument('--format', choices=['wav', 'mp3', 'flac'], default='wav', help='format of audio files')
 
 args = parser.parse_args()
 args = vars(args)

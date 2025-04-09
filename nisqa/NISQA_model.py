@@ -743,13 +743,13 @@ class nisqaModel(object):
             
     
     def _loadDatasetsFolder(self):
-        files = glob( os.path.join(self.args['data_dir'], '*.wav') )
+        files = glob( os.path.join(self.args['data_dir'], f'*.{self.args["format"]}') )
         files = [os.path.basename(files) for files in files]
         df_val = pd.DataFrame(files, columns=['deg'])
      
         print('# files: {}'.format( len(df_val) ))
         if len(df_val)==0:
-            raise ValueError('No wav files found in data_dir')   
+            raise ValueError(f'No {self.args.format} files found in data_dir')   
         
         # creating Datasets ---------------------------------------------------                        
         self.ds_val = NL.SpeechQualityDataset(
